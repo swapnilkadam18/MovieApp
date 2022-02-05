@@ -41,6 +41,18 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    def ktxVersion = "2.4.0"
+    //ViewModel scope
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxVersion"
+    //LifeCycle Scope
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$ktxVersion"
+    //LiveData Scope
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ktxVersion"
+
+    //Retrofit latestVersion: https://github.com/square/retrofit
+    def retrofitVersion = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
