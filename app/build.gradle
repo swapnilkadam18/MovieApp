@@ -49,6 +49,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$ktxVersion"
     //LiveData Scope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ktxVersion"
+    //Jetpack Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$ktxVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$ktxVersion"
 
     //Retrofit latestVersion: https://github.com/square/retrofit
     def retrofitVersion = "2.9.0"
