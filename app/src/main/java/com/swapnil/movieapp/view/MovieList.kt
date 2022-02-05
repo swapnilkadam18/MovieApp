@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import com.swapnil.movieapp.R
 import com.swapnil.movieapp.databinding.FragmentMovieListBinding
@@ -20,16 +21,15 @@ class MovieList : Fragment(R.layout.fragment_movie_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val binding = FragmentMovieListBinding.bind(view)
 
-        val movieService = Retrofit.Builder()
-            .baseUrl(MovieService.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build()
-            .create(MovieService::class.java)
-
         binding.testBtn.setOnClickListener {
+            val movieService = Retrofit.Builder()
+                .baseUrl(MovieService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .build()
+                .create(MovieService::class.java)
+
             CoroutineScope(Dispatchers.IO).launch {
                 val movieListNetwork = movieService.getPopularMovies(apiKey = "a6d9584c234ffa42d2c4fb052ed62712",
                     language = "en-US")
@@ -40,6 +40,11 @@ class MovieList : Fragment(R.layout.fragment_movie_list) {
                 )
                 Log.e("TEST", "list: "+movieItemNetwork.title)
             }
+        }
+
+        binding.nextBtn.setOnClickListener {
+            //go to next screen
+            findNavController().navigate(R.id.movieDetails,null)
         }
 
     }
