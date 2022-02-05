@@ -1,37 +1,39 @@
-package com.swapnil.movieapp
+package com.swapnil.movieapp.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.gson.GsonBuilder
-import com.swapnil.movieapp.databinding.ActivityMainBinding
+import com.swapnil.movieapp.R
+import com.swapnil.movieapp.databinding.FragmentMovieListBinding
 import com.swapnil.movielistapp.model.network.service.MovieService
-import com.swapnil.movielistapp.model.network.service.MovieService.Companion.BASE_URL
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MovieList : Fragment(R.layout.fragment_movie_list) {
 
-    private lateinit var binding: ActivityMainBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentMovieListBinding.bind(view)
 
         val movieService = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(MovieService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(MovieService::class.java)
 
         binding.testBtn.setOnClickListener {
-                CoroutineScope(IO).launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 val movieListNetwork = movieService.getPopularMovies(apiKey = "a6d9584c234ffa42d2c4fb052ed62712",
                     language = "en-US")
-                Log.e("TEST", "list: "+movieListNetwork.movieListItemNetworkResult!!.get(0).title)
+                Log.e("TEST", "list: "+movieListNetwork.movieListItemNetworkResult!!.size)
 
                 val movieItemNetwork = movieService.getMovieDetail(movieId = 634649,apiKey = MovieService.API_KEY,
                     language = MovieService.LOCALE_LANGUAGE
@@ -39,5 +41,6 @@ class MainActivity : AppCompatActivity() {
                 Log.e("TEST", "list: "+movieItemNetwork.title)
             }
         }
+
     }
 }
