@@ -35,10 +35,8 @@ class MovieList : Fragment(R.layout.fragment_movie_list) {
                     language = "en-US")
                 Log.e("TEST", "list: "+movieListNetwork.movieListItemNetworkResult!!.size)
 
-                val movieItemNetwork = movieService.getMovieDetail(movieId = 634649,apiKey = MovieService.API_KEY,
-                    language = MovieService.LOCALE_LANGUAGE
-                )
-                Log.e("TEST", "list: "+movieItemNetwork.title)
+                //add to db
+
             }
         }
 
