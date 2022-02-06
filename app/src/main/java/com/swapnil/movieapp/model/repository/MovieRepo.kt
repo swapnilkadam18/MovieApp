@@ -31,7 +31,7 @@ class MovieRepo @Inject constructor(
                     moviesEntityVal.add(
                         MovieEntity(
                             id!!,
-                            backdropPath!!,
+                            MovieApiService.BASE_IMG_URL+backdropPath!!,
                             originalLanguage!!,
                             originalTitle!!,
                             overview!!,
