@@ -21,8 +21,6 @@ class MovieDetails : Fragment(R.layout.fragment_movie_details) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMovieDetailsBinding.bind(view)
 
-        Log.e("TEST", "movie id: "+viewModel.movieId)
-
         binding.apply {
             viewModel.movieDetails.observe(
                 viewLifecycleOwner
