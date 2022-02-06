@@ -1,6 +1,6 @@
 package com.swapnil.movieapp.model.network.service
 
-import com.swapnil.movielistapp.model.network.data.response.MovieListItemResDTO
+import com.swapnil.movieapp.model.network.data.response.MovieDetailsResDTO
 import com.swapnil.movielistapp.model.network.data.response.MovieListResDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,6 +29,6 @@ interface MovieApiService {
         @Path(PARAM_MOVIE_ID) movieId: Int,
         @Query(PARAM_API_KEY) apiKey: String,
         @Query(PARAM_LANG) language: String
-    ): MovieListItemResDTO
+    ): MovieDetailsResDTO
 
 }

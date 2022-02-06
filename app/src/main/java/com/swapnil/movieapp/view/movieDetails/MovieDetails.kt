@@ -3,21 +3,14 @@ package com.swapnil.movieapp.view.movieDetails
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.room.Room
-import com.google.gson.GsonBuilder
+import com.bumptech.glide.Glide
 import com.swapnil.movieapp.R
 import com.swapnil.movieapp.databinding.FragmentMovieDetailsBinding
-import com.swapnil.movieapp.model.network.service.MovieApiService
-import com.swapnil.movielistapp.model.persistence.MovieDatabase
+import com.swapnil.movieapp.model.repository.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @AndroidEntryPoint
 class MovieDetails : Fragment(R.layout.fragment_movie_details) {
@@ -30,37 +23,19 @@ class MovieDetails : Fragment(R.layout.fragment_movie_details) {
 
         Log.e("TEST", "movie id: "+viewModel.movieId)
 
-        binding.goBackBtn.setOnClickListener {
-            //go back to prev screen
-            findNavController().navigateUp()
-        }
-
-        binding.testBtn.setOnClickListener {
-            val movieService = Retrofit.Builder()
-                .baseUrl(MovieApiService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build()
-                .create(MovieApiService::class.java)
-
-            CoroutineScope(Dispatchers.IO).launch {
-
-                val persistenceService = Room.databaseBuilder(
-                    requireContext().applicationContext,
-                    MovieDatabase::class.java,
-                    "movies_database"
-                ).build()
-
-                val allMovies = persistenceService.movieDao().getTestAllMovies()
-                Log.e("TEST", "allMovies size: "+allMovies.size)
-                Log.e("TEST", "0 element id: "+allMovies.get(0).id)
-                Log.e("TEST", "0 element id: "+allMovies.get(0).ogTitle)
-
-                val movieItemNetwork = movieService.getMovieDetail(
-                    movieId = allMovies.get(0).id,
-                    apiKey = MovieApiService.API_KEY,
-                    language = MovieApiService.LOCALE_LANGUAGE
-                )
-                Log.e("TEST", "list: "+movieItemNetwork.title)
+        binding.apply {
+            viewModel.movieDetails.observe(
+                viewLifecycleOwner
+            ){result ->
+                detailsProgress.isVisible = result is Resource.Loading
+                result.data?.apply {
+                    Glide.with(requireView())
+                        .load(posterPath)
+                        .into(detailsPoster)
+                    detailsTitle.text = original_title
+                    detailsDate.text = releasedDate
+                    detailsOverview.text = overview
+                }
             }
         }
     }

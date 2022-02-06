@@ -3,9 +3,10 @@ package com.swapnil.movielistapp.model.persistence
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.swapnil.movieapp.model.persistence.MovieDao
+import com.swapnil.movieapp.model.persistence.data.MovieDetailEntity
 import com.swapnil.movielistapp.model.persistence.data.MovieEntity
 
-@Database(entities = [MovieEntity::class],
+@Database(entities = [MovieEntity::class,MovieDetailEntity::class],
     version = RoomConstants.MOVIE_APP_DB_VERSION,
     exportSchema = false
 )

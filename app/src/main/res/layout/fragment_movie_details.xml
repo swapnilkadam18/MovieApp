@@ -4,25 +4,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".view.movieDetails.MovieDetails">
 
-    <Button
-        android:id="@+id/testBtn"
+    <ImageView
+        android:id="@+id/detailsPoster"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/imgMissingContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true"/>
+
+    <TextView android:id="@+id/detailsTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/detailsPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailsPoster"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:ellipsize="end"/>
+
+    <TextView android:id="@+id/detailsDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/detailsPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailsPoster"
+        app:layout_constraintTop_toBottomOf="@+id/detailsTitle"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textSize="14sp"/>
+
+    <TextView android:id="@+id/detailsOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailsPoster"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPoster"
+        android:layout_marginTop="25dp"
+        android:textSize="14sp"/>
+
+    <ProgressBar
+        android:id="@+id/detailsProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pull from db"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/goBackBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go Back"
-        app:layout_constraintTop_toBottomOf="@+id/testBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
