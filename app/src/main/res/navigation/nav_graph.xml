@@ -7,16 +7,20 @@
 
     <fragment
         android:id="@+id/movieList"
-        android:name="com.swapnil.movieapp.view.MovieList"
-        android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_movie_list" >
+        android:name="com.swapnil.movieapp.view.movies.MoviesList"
+        android:label="Movies"
+        tools:layout="@layout/fragment_movie_list">
         <action
             android:id="@+id/action_movieList_to_movieDetails"
             app:destination="@id/movieDetails" />
     </fragment>
     <fragment
         android:id="@+id/movieDetails"
-        android:name="com.swapnil.movieapp.view.MovieDetails"
-        android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" />
+        android:name="com.swapnil.movieapp.view.movieDetails.MovieDetails"
+        android:label="Details"
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
