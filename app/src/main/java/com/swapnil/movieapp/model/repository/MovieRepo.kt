@@ -11,10 +11,10 @@ class MovieRepo @Inject constructor(
     private val networkApiService: MovieApiService,
     private val movieDatabase: MovieDatabase
 ) {
-
     private val movieDao = movieDatabase.movieDao()
 
-    fun getMovies() = networkBoundResource(
+    fun getMovies() =
+        networkBoundResource(
         query = {
             movieDao.getAllMovies()
         },
@@ -78,7 +78,6 @@ class MovieRepo @Inject constructor(
                 )
                 movieDao.insertMovieDetails(movieDetailsEntityVal)
             }
-
         }
     )
 
